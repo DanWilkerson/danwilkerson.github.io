@@ -1,3 +1,7 @@
+---
+layout: post
+---
+
 Variables are dynamic bits of information that can be used within Google Tag Manager Tags, Rules, and even between Variables. They look something like this: <code>{{Variable Name}}</code>. These can get the value of 1st Party Cookies, JavaScript Variables, Data Layer Variables, and the 'Custom JavaScript' macro lets you extend the functionality of Variables nearly limitlessly. For a great overview of everything on offer, check out [Simo Ahava's complete guide to all of the default Variables](http://www.simoahava.com/analytics/macro-guide-google-tag-manager/). Here's a list of some of my personal favorites.
 
 ### . User Agent

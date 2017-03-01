@@ -1,3 +1,7 @@
+---
+layout: post
+---
+
 For those of you who remember Google Analytics classic, the next four characters I write after this sentence should ring with nostalgia:
 
   _gaq

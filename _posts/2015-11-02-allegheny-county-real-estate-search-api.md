@@ -1,3 +1,7 @@
+---
+layout: post
+---
+
 Allegheny County makes available a [searchable database](http://www2.county.allegheny.pa.us/RealEstate/search.aspx) of public records on parcels in the area. It's a handy resource for homebuyers interested in knowing a little more about the history of a home they're purchasing, or to do some comparison shopping when preparing to buy a home.
 
 I've always been interested in examining pricing data on Pittsburgh neighborhoods for fun, so about a year ago I put together a NodeJS package that exposes a few methods to scrape the site and return the data in JSON, e.g.:

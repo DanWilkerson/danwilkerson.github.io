@@ -1,3 +1,7 @@
+---
+layout: post
+---
+
 In programming, compiled collections of code that add functionality are typically called 'Libraries'. They're often offered up for free to the community to use, build upon, and improve. I'd like to do the same for the web analytics world; so I've collected a few of my favorite Google Tag Manager tags here.
 
 I've tried to pick tags that are great functional additions to any Google Tag Manager configuration. I'd also like for you to contribute your favorites (or offer suggestions on where I can improve mine); I'll periodically add them to the list, or I might even make a follow-up post collecting your suggestions. To contribute, hit me up on Twitter at [@notdanwilkerson](https://twitter.com/notdanwilkerson) or email me at [notdanwilkerson@gmail.com](mailto:notdanwilkerson@gmail.com).

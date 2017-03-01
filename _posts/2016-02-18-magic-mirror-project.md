@@ -1,3 +1,7 @@
+---
+layout: post
+---
+
 For Christmas this year, I was trying to come up with something unique for my girlfriend. After some hemming and hawing, I decided to create my own [Magic Mirror, in the style of Michael Teeuw](https://github.com/MichMich/MagicMirror)(turns out [I wasn't the only one who was inspired by Michael](https://www.reddit.com/search?q=magic+mirror). One small twist - the giftee specifically requested a full-length mirror, of which we are in dire need.
 
 ## tep 1: Roughing The Design & Finding The Screen

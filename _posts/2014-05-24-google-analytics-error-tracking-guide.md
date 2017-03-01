@@ -1,3 +1,7 @@
+---
+layout: post
+---
+
 Oft overlooked, error tracking is one of the most valuable ways to use Google Analytics. This essential guide covers how to use Google Analytics to track:
 ###### click a link to jump ahead)
 - [404 Errors](# 04errors)

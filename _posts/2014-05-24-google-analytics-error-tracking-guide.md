@@ -4,10 +4,10 @@ layout: post
 
 Oft overlooked, error tracking is one of the most valuable ways to use Google Analytics. This essential guide covers how to use Google Analytics to track:
 ###### click a link to jump ahead)
-- [404 Errors](# 04errors)
-- [Javascript Errors](# avascripterrors)
-- [Server-side Errors](# erversideerrors)
-- [Modal/Dialog Errors](# odaldialogerrors)
+- [404 Errors](#404errors)
+- [Javascript Errors](#javascripterrors)
+- [Server-side Errors](#serversideerrors)
+- [Modal/Dialog Errors](#modaldialogerrors)
 
 Using:
 
@@ -15,7 +15,7 @@ Using:
 - Universal Analytics
 - Classic Google Analytics
 
-## 04 Errors
+## 404 Errors
 
 Tracking 404s is great for:
 
@@ -25,28 +25,54 @@ Tracking 404s is great for:
 
 Use Events to capture the previous page of the visit and the complete location of where the 404 occured. These are available at <code>document.referrer</code> and <code>document.location.href</code>, respectively. These two pieces of information can let you track down exactly where the offending link happens to be; capture these instead of relying on the 'Page' or 'Full Referrer' dimension in Google Analytics. Those values can easily be altered by filters, campaign parameters, or by other features built into Google Analytics.
 
-#### OR GOOGLE TAG MANAGER:
-If you're using Google Tag Manager, checking the title element for the default '404' text is a sturdy test to fire a tracking event. Something like <code>{{title}} equals '404 Page'</code> or <code>{{title}} contains '404 Page'</code>, as recommended by Samantha Barnes in her [excellent guide to capturing 404 metrics with Google Tag Manager](http://www.lunametrics.com/blog/2014/08/19/404-errors-google-analytics-google-tag-manager/). You can also reference other tags that are on the page - be creative and find a standard value to watch for. 
+<style>
+  .tabs .tab .content {
+    display: none;
+  }
+  .tabs .tab input:checked + .content {
+    display: initial !important;
+  }
+  .tabs .tab > input {
+    display: none;
+  }
+</style>
+<div class="tabs">
+  <div class="tab">
+    <label for="tab-1">
+      Tab One
+    </label>
+    <input id="tab-1" type="checkbox"/>
+    <div class="content">
+      Tab One Content
+    </div>
+  </div>
+  <div class="tab">
+    <label for="tab-2">
+      Tab Two
+    </label>
+    <input id="tab-2" type="checkbox"/>
+    <div class="content">
+      Tab Two Content
+    </div>
+  </div>
+</div>
+
+#### FOR GOOGLE TAG MANAGER:
+If you're using Google Tag Manager, checking the title element for the default '404' text is a sturdy test to fire a tracking event. Something like <code>{{ "{{ title "}}}} equals '404 Page'</code> or <code>{{ "{{title"}}}} contains '404 Page'</code>, as recommended by Samantha Barnes in her [excellent guide to capturing 404 metrics with Google Tag Manager](http://www.lunametrics.com/blog/2014/08/19/404-errors-google-analytics-google-tag-manager/). You can also reference other tags that are on the page - be creative and find a standard value to watch for. 
 
 If that's not possible, you'll need to get your developers to populate the dataLayer with an event that you can watch for in Tag Manager, like:
 <pre>
-var dataLayer = dataLayer||[];
+var dataLayer = window.dataLayer = window.dataLayer || [];
 dataLayer.push({'event':'404 Error'});
 </pre>
 
 Then, you add a rule that watches for the 404 Error event, like so:
 
-{<1>}![](/content/images/2014/Aug/Screen-Shot-2014-08-21-at-11-47-47-PM.png)
+![](/content/images/2014/Aug/Screen-Shot-2014-08-21-at-11-47-47-PM.png)
 
 Then you create a Google Analytics Event tag and populate the Event Action and Event Label with the full URL of the page and the referrer.
 
-{<2>}![](/content/images/2014/Aug/Screen-Shot-2014-08-20-at-1-09-37-PM.png)
-
-As a best practice, I recommend that you try and decouple the mechanism that fires the event into Google Analytics from the actual event. Doing this means you can use a single 'generic event' tag to handle the processing of all of your events, and instead just push data into the dataLayer for the event tag to reference. For example:
-
-{<3>}![](/content/images/2014/Aug/Screen-Shot-2014-08-20-at-1-06-27-PM.png)
-
-In the above, each macro simply returns a corresponding dataLayer variable for an event value. It watches for 'event':'eventFired' in the dataLayer. To generate a 404 event, all that needs to happen is the following be pushed into the dataLayer:
+![](/content/images/2014/Aug/Screen-Shot-2014-08-20-at-1-09-37-PM.png)
 
 <pre>
 var referrer = document.referrer;
@@ -103,7 +129,7 @@ Then, you'll need to add another tag that listens for 'gtm.pageError' and uses t
 dataLayer.push({
   'event':'eventFired',
   'eventCategory': 'JS Errors',
-  'eventAction': {{gtm.errorMessage}},
+  'eventAction': {{ "{{gtm.errorMessage"}}}},
   'eventLabel': URL: {{href}} | File: {{gtm.errorUrl}} | Line: {{gtm.errorLineNumber}},
   'eventValue': 0,
   'eventNonInteraction': true

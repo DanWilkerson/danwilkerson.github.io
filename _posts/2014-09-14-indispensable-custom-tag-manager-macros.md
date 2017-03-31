@@ -5,6 +5,7 @@ layout: post
 Variables are dynamic bits of information that can be used within Google Tag Manager Tags, Rules, and even between Variables. They look something like this: <code>{{ "{{Variable Name"}}}}</code>. These can get the value of 1st Party Cookies, JavaScript Variables, Data Layer Variables, and the 'Custom JavaScript' macro lets you extend the functionality of Variables nearly limitlessly. For a great overview of everything on offer, check out [Simo Ahava's complete guide to all of the default Variables](http://www.simoahava.com/analytics/macro-guide-google-tag-manager/). Here's a list of some of my personal favorites.
 
 ### 1. User Agent
+
 The User Agent is a string of text that identifies the ["software (a software agent) that is acting on behalf of a user"](http://en.wikipedia.org/wiki/User_agent). In our case, this is the browser and device used to access our website. For example, here's yours:
 
 <span id="print-ua"></span>
@@ -16,6 +17,7 @@ Since the User Agent is stored in the <code>navigator.userAgent</code> property,
 ![Select the variable type 'JavaScript Variable' and enter 'navigator.userAgent' into the input](/images/user-agent-variable.png)
 
 For example, if you wanted to run a test and exclude any users of Internet Explorer 8 or below, you could do the following:
+
 <pre>
 var isIeEightOrBelow = {{ "{{User Agent"}}}}.match(/MSIE [2-8]/i) > -1 ? true : false;
 if (isIeEightOrBelow) {
@@ -30,6 +32,7 @@ You could also block an entire tag by using the same match as a blocking excepti
 ![Blocking IE8 with Tag Manager](/images/blocking-ie-trigger.png)
 
 ### 2. Week of the Year
+
 Having the week of the year handy is more useful than you might first expect; one thing I like to do is store the week and year with a converting user, so that I can perform acquisition cohort analysis within Google Analytics. This snippet (modified from an excellent Stack Overflow response courtesy of [RobG on Stack Overflow](http://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php)) extends the built-in Date object to allow you to get the current week of the year.
 
 <pre>
@@ -46,6 +49,7 @@ This is a great way to segment data and learn how user behavior changes over tim
 <strong>Update:</strong> With the new [Cohort Analysis Report](https://support.google.com/analytics/answer/6074676?hl=en), you can do some of this style of reporting natively. That said, you can only look at a limited set of cohorts in the data, so this is still a good back-up.
 
 ### 3. Is the User a Mobile User
+
 This is a snippet courtesy of [Michael Zaporozhets on Stack Overflow](http://stackoverflow.com/questions/11381673/javascript-solution-to-detect-mobile-browser); it's a function that will return <code>True</code> if the user is on a mobile device, according to their user agent.
 
 <pre>
@@ -55,11 +59,14 @@ function() {
   return check;
 }
 </pre>
+
 This can be a useful piece of information if you'd like to prevent certain tags from firing on mobile devices, or if you'd like to exclude mobile users from a Content Experiment. The above warning about using the User Agent still applies.
 
 ### 4. The Page Title
+
 This is a simple set of Macros that can come in handy for a number of reasons; say, for example, your site returns content on the same path, but with a huge variety in what content it returns based on some byzantine query string structure. In that case, the Page Title might expose some useful information. Fortunately, this is easily accessible through the <code>document.title</code> property. Just configure the Macro like you see below:
-![Select 'JavaScript Variable' for your Macro type, then enter 'document.title' in the input](/images/vars-jv-doc-title.png)
+
+![Select 'JavaScript Variable' for your Macro type, then enter 'document.title' in the input](/images/jv-doc-title.png)
 
 Of course, Google Analytics will already capture the Page Title for you, but should you need to combine that data with another data point for deeper context, this is handy to have.
 
@@ -80,16 +87,19 @@ function() {
 </pre>
 
 <strong>Update:</strong> Jim Gianoglio of [LunaMetrics](http://www.lunametrics.com/) fame pointed out that this could be accomplished JavaScript-free by using the below JavaScript Variable macro:
+
 ![Example JavaScript Macro with document.head.children.description.content entered as the value](/images/js-var-meta.png)
 
 The value entered above is <code>document.head.children.description.content</code>, which will return the Meta Description or <code>undefined</code>. Google Tag Manager helpfully catches errors for missing properties.
 
 ### 6. The Environment
+
 If your site is developed and runs in several different environments, such as a development environment, a staging environment, and a production environment, it can be useful to modify tag behavior based on which enviroment the tag is operating in. For example, I wouldn't want my Google Analytics tag sending data to my production Google Analytics account from activity taking place in my development area. This could dirty my data with extra transactions, events, and other site metrics. Even a few extra test transactions run for Quality Assurance can skew the data.
 
 There are a few ways to handle this. 
 
 #### 6a.) Have your developers populate the environment in the Data Layer
+
 You can have your development team add a Data Layer variable that specifies what environment the site is currently being loaded in, like this:
 <pre>
 var dataLayer = window.dataLayer|| (window.dataLayer = []);
@@ -97,7 +107,9 @@ dataLayer.push({'environment':'staging'});
 </pre>
 
 #### 6b.) Detect the environment based on the hostname
+
 If your development and staging environments live at different hostnames, like 'mysitestaging.com', you can create a Custom JavaScript Macro that returns the environment based on what it sees in the hostname, like this:
+
 <pre>
 function() {
   var hostname = {{ "{{Page Hostname"}}}};
@@ -106,8 +118,11 @@ function() {
 }
 </pre>
 <strong>Update:</strong> [Pavel Jašek](http://www.dlouhychvost.cz/) pointed out to me on Twitter that lookup tables could be used in place of custom JavaScript; this is a much better way to go about it. Something like below would suffice:
-![An example lookup table with a list of potential hostnames and their corresponding environment strings](/images/vars-env-lookup.png)
+
+![An example lookup table with a list of potential hostnames and their corresponding environment strings](/images/env-lookup.png)
+
 #### 6c.) Detect the environment by testing something else
+
 If, for some reason, your testing enviroment is operating at the same hostname that your production environment is in, you'll have to be creative and determine another authoritative test to run in order to figure out which environment you're running in. Here's a handful of ideas:
 
 - Try and access a service available only in one environment, like an outside API
@@ -115,15 +130,21 @@ If, for some reason, your testing enviroment is operating at the same hostname t
 - Search external stylesheets or JavaScript for comments - typically these will be minified out in Production
 
 ### 7. The Google Analytics UA Number
-The UA number is the number associated with the Google Analytics property that a hit is being sent off to. Having this handy can be useful for either configuring things on the fly or testing data before takng certain actions. If your site only operates in one environment, this is a snap:
+
+The UA number is the number associated with the Google Analytics property that a hit is being sent off to. Having this handy can be useful for either configuring things on the fly or testing data before taking certain actions. If your site only operates in one environment, this is a snap:
+
 <pre>
 function() {
   return 'UA-XXXXX-XX';  // Enter in your UA number here
 }
 </pre>
+
 <strong>Update:</strong> The above is a valid, but more roundabout way to accomplish this - I've left it there for posterity, but I would recommend instead using a Constant macro for a single UA number, like below:
-![Example Constant macro with a Google Analytics UA number stored as the value](/images/vars-ga-ua-number.png)
+
+![Example Constant macro with a Google Analytics UA number stored as the value](/images/ga-ua-number.png)
+
 However, if you'd like to use a different property for each environment (you should), then you might do something like this:
+
 <pre>
 function() {
   var environment = {{ "{{environment"}}}};
@@ -135,9 +156,10 @@ function() {
   }
 }
 </pre>
+
 <strong>Update:</strong> Per the above update, a lookup table would be a better option here. Here's what it might look like:
 
-![An example lookup table for a Google Analytics UA Number, keyed by environment](/images/vars-env-lookup-w-ua.png)
+![An example lookup table for a Google Analytics UA Number, keyed by environment](/images/env-lookup-w-ua.png)
 
 Pavel also recommended [this article on lookup tables by Simo Ahava](http://www.simoahava.com/analytics/google-tag-manager-lookup-table-macro/).
 
@@ -164,6 +186,7 @@ function() {
 </pre>
 
 ##### OR UNIVERSAL ANALYTICS:
+
 <pre>
 // Only works if _ga cookie has been set
 function () {
@@ -173,8 +196,11 @@ function () {
   }
 }
 </pre>
+
 #### Option 2: Asking Politely (Tracker Properties; Universal Only)
+
 ##### OR UNIVERSAL ANALYTICS WITHOUT A NAMED TRACKER (TYPICAL):
+
 <pre>
 function() {
 
@@ -192,6 +218,7 @@ function() {
 </pre>
 
 #### OR UNIVERSAL ANALYTICS WITH A NAMED TRACKER (UNUSUAL):
+
 <pre>
 function() {
 

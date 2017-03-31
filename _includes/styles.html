@@ -13,4 +13,44 @@
   padding-right: 1em;
   max-width: 768px;
 }
+/* Mostly borrowed from https://css-tricks.com/functional-css-tabs-revisited/ */
+.tabs .tab .content {
+  display: none;
+}
+.tabs .tab > input[type="radio"]:checked + .content {
+  display: block !important;
+}
+.tabs .tab > input[type="radio"] {
+  display: none;
+}
+.tabs {
+  position: relative;
+  min-height: 200px;
+  clear: both;
+  margin: 25px 0;
+}
+.tab {
+  float: left;
+}
+.content {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #ffe;
+}
+.tab label {
+  background: #eee;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-left: -1px;
+  position: relative;
+  left: 1px;
+  cursor: pointer;
+}
+img {
+  max-width: 100%;
+}
 </style>

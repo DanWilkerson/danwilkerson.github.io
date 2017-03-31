@@ -38,7 +38,7 @@ acreApi.parcel.ownerHistory('0084-N-00285-0000-00', function(err, parcel) {
 
 I built it to provide a programmatic way of querying that dataset, [which can be found here](https://github.com/DanWilkerson/acre-api). The API makes it super simple to aggregate data on swaths of the Pittsburgh region for analysis. Here's a chart I built using the <code>street.street</code> and <code>parcel.ownerHistory</code> methods.
 
-{<1>}![Chart graphing sales and median price in Lower Lawrenceville](/content/images/2015/Nov/image--1-.png)
+![Chart graphing sales and median price in Lower Lawrenceville](/images/lawrenceville-prices.png)
 
 For folks who live in the area, the data suggests a fire-sale in the neighborhood between 2005-2007 (about when the new Childrens Hospital was announced and moved into the neighborhood), and steady price increases from then on as interest in the Lawrenceville area has stretched into the further reaches of the neighborhood. 
 

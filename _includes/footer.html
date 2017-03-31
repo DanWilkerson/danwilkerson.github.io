@@ -1,0 +1,92 @@
+<script>
+(function(document, window) {
+
+  var cookies = {
+    get: function(name) {
+
+      var cookieStr = '; ' + document.cookie;
+      var id = '; ' + name + '=';
+      if (cookieStr.indexOf(id) > -1) {
+
+        return decodeURIComponent(cookieStr.split(id)[1].split(';')[0]);
+
+      }
+
+    },
+    set: function(config) {
+
+      document.cookie = config.name + '=' + encodeURIComponent(config.value) +
+        (config.exp ? '; Expires=' + new Date(config.exp).toGMTString() : '') + 
+        (config.path ? '; Path=' + config.path : '') + 
+        (config.domain ? '; Domain=' + config.domain : '');
+
+    }
+  };
+  var tabPref = cookies.get('_tab-pref');
+
+  if (tabPref) {
+
+    setTabPref(tabPref);
+
+  } 
+
+  updateTabHeights();
+
+  $$('.tabs .tab > input[type="radio"]').map(function(input) {
+
+    input.addEventListener('change', updateTabHeights);
+    input.addEventListener('change', function(evt) {
+
+      var input = evt.target;
+      var tabPref = input.getAttribute('data-category');
+
+      if (tabPref) setTabPref(tabPref);
+
+    });
+
+  });
+
+  function setTabPref(tabPref) {
+
+    cookies.set({
+      name: '_tab-pref',
+      value: tabPref,
+      path: document.location.pathname
+    });
+
+    $$('input[data-category="' + tabPref + '"]').forEach(function(el) {
+
+      if (!el.checked) el.checked = true;
+      updateTabHeights();
+
+    });
+
+  }
+
+  function updateTabHeights() {
+
+    $$('.tabs').forEach(function(tabs) {
+ 
+      $$('.tab > input[type=radio]:checked + .content', tabs)
+        .forEach(function(content) {
+
+          var height = content.getBoundingClientRect().height;
+
+          tabs.style.minHeight = (height + 20) + 'px';
+
+        });
+
+    });
+
+  }
+
+
+  function $$(selector, optEl) {
+
+    return [].slice.call((optEl || document).querySelectorAll(selector));
+
+  }
+
+
+})(document, window);
+</script>

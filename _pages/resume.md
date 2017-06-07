@@ -1,10 +1,14 @@
+---
+permalink: /resume
+layout: default
+---
 <div class="center">
   <h1>Daniel Wilkerson</h1>
   <p>A Software Developer based in Pittsburgh, PA</p>
   <p>
     <em>
       <a href="tel:+17175074231">717-507-4231</a>
-       | 
+       |
       <a href="mailto:notdanwilkerson@gmail.com">
         notdanwilkerson@gmail.com
       </a>
@@ -87,6 +91,6 @@ Although Pittsburgh is my home, I'm open to opportunities in the following citie
 - Seattle, WA
 - Los Angeles, CA
 
-I'm also interested in opportunities working abroad for a period of up to a year. 
+I'm also interested in opportunities working abroad for a period of up to a year.
 
 Think I'm a good fit for your organization? <a href="/contact">Contact me now</a>.

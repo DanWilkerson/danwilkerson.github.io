@@ -6,7 +6,7 @@ Allegheny County makes available a [searchable database](http://www2.county.alle
 
 I've always been interested in examining pricing data on Pittsburgh neighborhoods for fun, so about a year ago I put together a NodeJS package that exposes a few methods to scrape the site and return the data in JSON, e.g.:
 
-<pre>
+{% highlight javascript %}
 acreApi.parcel.ownerHistory('0084-N-00285-0000-00', function(err, parcel) {
     if(err) return console.log(err);
     console.log(parcel);
@@ -34,7 +34,7 @@ acreApi.parcel.ownerHistory('0084-N-00285-0000-00', function(err, parcel) {
         salePrice: 125000
     }]
 }
-</pre>
+{% endhighlight %}
 
 I built it to provide a programmatic way of querying that dataset, [which can be found here](https://github.com/DanWilkerson/acre-api). The API makes it super simple to aggregate data on swaths of the Pittsburgh region for analysis. Here's a chart I built using the <code>street.street</code> and <code>parcel.ownerHistory</code> methods.
 

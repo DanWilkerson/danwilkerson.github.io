@@ -16,12 +16,13 @@
 title: Dan Wilkerson
 email: notdanwilkerson@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Thoughts of an aspiring software developer
+  Thoughts & tinkerings from the edge of Southwestern PA
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: notdanwilkerson
 github_username:  danwilkerson
-version: 0.0.3
+version: 0.0.4
+highlighter: rouge
 
 # Build settings
 markdown: kramdown
@@ -31,3 +32,5 @@ gems:
 exclude:
   - Gemfile
   - Gemfile.lock
+include: ["_pages"]
+permalink: /:title/
